@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,4 +36,13 @@ Route::group(['prefix' => 'Brand', 'as' => 'Brand.'], function () {
     Route::get('/edit/{id}', [BrandController::class, 'edit'])->name('edit');
     Route::put('/edit/{id}', [BrandController::class, 'update'])->name('update');
     Route::delete('/destroy/{id}', [BrandController::class, 'destroy'])->name('destroy');
+});
+
+Route::group(['prefix' => 'Product', 'as' => 'Product.'], function () {
+    Route::get('/', [ProductController::class, 'index'])->name('index');
+    Route::get('/create', [ProductController::class, 'create'])->name('create');
+    Route::post('/create', [ProductController::class, 'store'])->name('store');
+    Route::get('/edit/{id}', [ProductController::class, 'edit'])->name('edit');
+    Route::put('/edit/{id}', [ProductController::class, 'update'])->name('update');
+    Route::delete('/destroy/{id}', [ProductController::class, 'destroy'])->name('destroy');
 });
