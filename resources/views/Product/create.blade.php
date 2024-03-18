@@ -1,6 +1,16 @@
 <h1>Thêm sản phẩm tại đây</h1>
 <br>
-<form action="" method="POST">
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+<br>
+<form action="{{ route('Product.store') }}" method="POST">
     @csrf
     Tên sản phẩm
     <br>
