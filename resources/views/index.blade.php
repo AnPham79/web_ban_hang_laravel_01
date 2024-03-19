@@ -22,6 +22,24 @@
         @endif
     </div>
 </div>
+
+@if (session()->has('role'))
+    Xin chào {{ session()->get('name') }}
+    <br>
+    <a href="{{ route('logout') }}">Đăng xuất</a>
+@else
+    <a href="{{ route('register') }}">Đăng kí</a>
+    <br>
+    <a href="{{ route('login') }}">Đăng nhập</a>
+@endif
+
+<br>
+<span>Số lượng sản phẩm trong giỏ hàng: {{ $cartCount }}</span>
+<a href="{{ route('ViewCart') }}">
+    Giỏ hàng
+</a>
+<br>
+
 <table border="1" width="100%">
     <tr>
         <td>Tên sản phẩm</td>
@@ -29,6 +47,7 @@
         <td>Giá sản phẩm</td>
         <td>Số lượng</td>
         <td>Mô tả sản phẩm</td>
+        <td>Thêm vào giỏ hàng</td>
     </tr>
     @foreach ($data as $each)
         <tr>
@@ -39,6 +58,13 @@
             <td>{{ $each->quantity_product }}</td>
             {{-- !! sửa dụng để hiển thị html --}}
             <td>{!! nl2br($each->description_product) !!}</td>
+            <td>
+                <form action="{{ route('addToCart', ['id' => $each->id]) }}" method="POST">
+                    @csrf
+                    @method('POST')
+                    <button>Thêm</button>
+                </form>
+            </td>
         </tr>
     @endforeach
     @if ($data instanceof \Illuminate\Pagination\AbstractPaginator)

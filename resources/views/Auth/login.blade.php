@@ -1,5 +1,5 @@
 <h1>Đăng nhập tài khoản</h1>
-
+<br>
 <form action="{{ route('process_login') }}" method="POST">
     @csrf
     Email của bạn

@@ -6,6 +6,7 @@ use App\Http\Controllers\BrandController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CartController;
 use App\Http\Middleware\CheckAdminMiddleware;
 use App\Http\Middleware\CheckLoginMiddleware;
 
@@ -24,6 +25,8 @@ Route::get('/', [HomeController::class, 'index'])->name('index');
 Route::get('/search', [HomeController::class, 'search'])->name('search');
 Route::get('/show/{id}', [HomeController::class, 'show'])->name('show');
 
+Route::get('/ViewCart', [CartController::class, 'ViewCart'])->name('ViewCart');
+
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/login', [AuthController::class, 'process_login'])->name('process_login');
 Route::get('/register', [AuthController::class, 'register'])->name('register');
@@ -32,6 +35,7 @@ Route::post('/register', [AuthController::class, 'process_register'])->name('pro
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::group(['middleware' => checkLoginMiddleware::class], function () {
+    Route::post('/addToCart/{id}', [CartController::class, 'addToCart'])->name('addToCart');
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
     Route::group(['prefix' => 'Category', 'as' => 'Category.'], function () {

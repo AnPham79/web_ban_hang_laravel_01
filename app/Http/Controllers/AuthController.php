@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\UserRequest;
 
 class AuthController extends Controller
 {
@@ -45,10 +46,18 @@ class AuthController extends Controller
     }
 
     public function register() {
-
+        return view('Auth.register');
     }
 
-    public function process_register() {
+    public function process_register(UserRequest $request) {
+        $data = new User;
+        // // $data->password = Hash::make($request->password);
+        // sử dụng cái này để mã hóa pass thây vì hash
+        $data->fill($request->except('_token'));
+        $data->password = bcrypt($request->password);
+        $data->save();
+
+        return redirect()->route('login');
 
     }
     

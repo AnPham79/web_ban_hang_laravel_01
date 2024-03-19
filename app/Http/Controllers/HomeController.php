@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Cart;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Pagination\Paginator;
+
 
 class HomeController extends Controller
 {
@@ -17,10 +19,17 @@ class HomeController extends Controller
         $data = Product::query()
             ->paginate(2);
 
+        if(session()->get('role')) {
+            $cartCount = Cart::where('user_id', session()->get('id'))->count();
+        } else {
+            $cartCount = 0;
+        }
+        
         $listsp = [];
         return view('index', [
             'data' => $data,
             'listsp' => $listsp,
+            'cartCount' => $cartCount
         ]);
     }
 
@@ -46,7 +55,7 @@ class HomeController extends Controller
         $data = Product::find($id);
 
         return view('show', [
-           'data' => $data,  
+            'data' => $data,
         ]);
     }
 }
