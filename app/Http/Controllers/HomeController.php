@@ -19,17 +19,20 @@ class HomeController extends Controller
         $data = Product::query()
             ->paginate(2);
 
-        if(session()->get('role')) {
-            $cartCount = Cart::where('user_id', session()->get('id'))->count();
+        if (session()->has('role')) {
+            $cartItems = Cart::where('user_id', session()->get('id'))->get();
+            $cartCount = $cartItems->count();
+            $totalQuantity = $cartItems->sum('quantity_prd');
         } else {
-            $cartCount = 0;
+            $totalQuantity = 0;
         }
-        
+
         $listsp = [];
+
         return view('index', [
             'data' => $data,
             'listsp' => $listsp,
-            'cartCount' => $cartCount
+            'totalQuantity' => $totalQuantity
         ]);
     }
 
@@ -46,8 +49,16 @@ class HomeController extends Controller
             $listsp = [];
         }
 
+        if (session()->has('role')) {
+            $cartItems = Cart::where('user_id', session()->get('id'))->get();
+            $cartCount = $cartItems->count();
+            $totalQuantity = $cartItems->sum('quantity_prd');
+        } else {
+            $totalQuantity = 0;
+        }
+
         $data = Product::paginate(2);
-        return view('index', ['tukhoa' => $tukhoa, 'listsp' => $listsp, 'data' => $data]);
+        return view('index', ['tukhoa' => $tukhoa, 'listsp' => $listsp, 'data' => $data, 'totalQuantity' => $totalQuantity]);
     }
 
     public function show($id)

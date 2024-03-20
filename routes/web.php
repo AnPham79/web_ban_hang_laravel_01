@@ -36,6 +36,11 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::group(['middleware' => checkLoginMiddleware::class], function () {
     Route::post('/addToCart/{id}', [CartController::class, 'addToCart'])->name('addToCart');
+    Route::put('/incre/{id}', [CartController::class, 'incre'])->name('incre');
+    Route::put('/decre/{id}', [CartController::class, 'decre'])->name('decre');
+    Route::delete('/delCart/{id}', [CartController::class, 'delCart'])->name('delCart');
+
+
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
     Route::group(['prefix' => 'Category', 'as' => 'Category.'], function () {

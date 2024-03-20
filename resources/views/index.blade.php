@@ -34,7 +34,7 @@
 @endif
 
 <br>
-<span>Số lượng sản phẩm trong giỏ hàng: {{ $cartCount }}</span>
+<span>Số lượng sản phẩm trong giỏ hàng: {{ $totalQuantity }}</span>
 <a href="{{ route('ViewCart') }}">
     Giỏ hàng
 </a>
