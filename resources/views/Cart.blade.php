@@ -65,6 +65,11 @@
         </table>
         tổng tiền: {{ $totalPrice }}
     @endif
+    <button>
+        <a href="{{ route('PagePay') }}">
+            Thanh toán
+        </a>
+    </button>
 </body>
 
 </html>

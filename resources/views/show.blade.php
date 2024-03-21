@@ -16,3 +16,16 @@ CHi tiết sản phẩm
             <td>{!! nl2br($data->description_product) !!}</td>
         </tr>
 </table>
+
+@foreach ($comment as $each)
+        người bình luận {{ $each->user_id }}
+        nội dung bình luận
+        <p>{{ $each->feedback }}</p>
+    @endforeach
+
+<form action="{{ route('comment', ['id' => $data->id]) }}" method="POST">
+    @csrf
+    @method('POST')
+    <textarea name="feedback" cols="30" rows="10"></textarea>
+    <button>Đăng bình luận</button>
+</form>

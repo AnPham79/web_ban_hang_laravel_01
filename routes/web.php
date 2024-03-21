@@ -7,6 +7,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Middleware\CheckAdminMiddleware;
 use App\Http\Middleware\CheckLoginMiddleware;
 
@@ -39,7 +40,9 @@ Route::group(['middleware' => checkLoginMiddleware::class], function () {
     Route::put('/incre/{id}', [CartController::class, 'incre'])->name('incre');
     Route::put('/decre/{id}', [CartController::class, 'decre'])->name('decre');
     Route::delete('/delCart/{id}', [CartController::class, 'delCart'])->name('delCart');
-
+    Route::get('PagePay', [InvoiceController::class, 'PagePay'])->name('PagePay');
+    Route::put('/pay', [InvoiceController::class, 'pay'])->name('pay');
+    Route::post('/comment/{id}', [HomeController::class, 'comment'])->name('comment');
 
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 

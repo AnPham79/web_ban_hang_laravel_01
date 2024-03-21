@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Cart;
+use App\Models\Comment;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Pagination\Paginator;
 
@@ -64,9 +65,23 @@ class HomeController extends Controller
     public function show($id)
     {
         $data = Product::find($id);
+        $comment = Comment::where('product_id', $id)->get();
 
         return view('show', [
             'data' => $data,
+            'comment' => $comment
         ]);
+    }
+
+    public function comment(Request $request, $id) {
+        $find = product::find($id);
+
+        $data = new Comment;
+        $data->user_id = session()->get('id');
+        $data->product_id = $find->id;
+        $data->feedback = $request->feedback;
+        $data->save();
+
+        return redirect()->back();
     }
 }
