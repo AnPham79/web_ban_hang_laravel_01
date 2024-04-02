@@ -14,11 +14,11 @@
     @csrf
     Tên người dùng
     <br>
-    <input type="text" name="name">
+    <input type="text" name="name" value="{{ old('name') }}">
     <br>
     email
     <br>
-    <input type="text" name="email">
+    <input type="text" name="email" value="{{ old('email') }}">
     <br>
     Mật khẩu
     <br>
@@ -26,11 +26,11 @@
     <br>
     Địa chỉ
     <br>
-    <input type="text" name="address">
+    <input type="text" name="address" value="{{ old('address') }}">
     <br>
     Số điện thoại
     <br>
-    <input type="text" name="phone">
+    <input type="text" name="phone" value="{{ old('phone') }}">
     <br>
     <button>Đăng kí</button>
 </form>

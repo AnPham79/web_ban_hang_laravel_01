@@ -33,7 +33,6 @@ class UserRequest extends FormRequest
                 'required',
                 'string',
                 'min:8',
-                'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/',
             ],
             'name' => [
                 'required'
@@ -58,7 +57,6 @@ class UserRequest extends FormRequest
             'password.required' => 'Mật khẩu là trường bắt buộc',
             'password.string' => 'Mật khẩu phải là một chuỗi',
             'password.min' => 'Mật khẩu phải có ít nhất 8 ký tự',
-            'password.regex' => 'Mật khẩu phải chứa ít nhất một chữ thường, một chữ hoa, một số, và một ký tự đặc biệt',
             'name.required' => 'Tên là trường bắt buộc',
             'phone.required' => 'Số điện thoại là trường bắt buộc',
             'phone.min' => 'Số điện thoại phải có ít nhất 10 chữ số',

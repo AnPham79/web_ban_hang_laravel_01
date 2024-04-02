@@ -16,12 +16,12 @@ class CreateCartsTable extends Migration
         Schema::create('carts', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('product_id');
             // Khi bản ghi cha bị xóa, bản ghi con cũng bị xóa
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->string('name_prd');
-            $table->string('img_prd');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->integer('quantity_prd');
-            $table->string('price_prd');
+            $table->integer('price_prd');
             $table->smallInteger('status_cart')->comment('CartStatusEnum')->index();
             $table->timestamps();
         });

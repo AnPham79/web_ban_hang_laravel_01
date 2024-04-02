@@ -21,10 +21,10 @@
     @else
         <table border="1" width="100%">
             <tr>
-                <td>#</td>
-                <td>Tên người dùng</td>
+                <td>Mã</td>
                 <td>Tên sản phẩm</td>
                 <td>Ảnh sản phẩm</td>
+                <td>Thương hiệu</td>
                 <td>Tăng số lượng</td>
                 <td>Số lượng</td>
                 <td>Giảm số lượng</td>
@@ -34,9 +34,9 @@
             @foreach ($cartItems as $data)
                 <tr>
                     <td>{{ $data->id }}</td>
-                    <td>{{ $data->user_id }}</td>
-                    <td>{{ $data->name_prd }}</td>
-                    <td><img src="{{ $data->img_prd }}" style="height:200px" alt=""></td>
+                    <td>{{ $data->name_product }}</td>
+                    <td>{{ $data->brand_name }}</td>
+                    <td><img src="{{ $data->img_product }}" style="height:200px" alt=""></td>
                     <td>
                         <form action="{{ route('incre', ['id' => $data->id]) }}" method="post">
                             @csrf
@@ -63,13 +63,12 @@
                 </tr>
             @endforeach
         </table>
-        tổng tiền: {{ $totalPrice }}
+        <button>
+            <a href="{{ route('PagePay') }}">
+                Thanh toán
+            </a>
+        </button>
     @endif
-    <button>
-        <a href="{{ route('PagePay') }}">
-            Thanh toán
-        </a>
-    </button>
 </body>
 
 </html>

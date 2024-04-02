@@ -12,7 +12,7 @@
                 <div class="list-group">
                     <a href="#" class="list-group-item list-group-item-action">
                         <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1">{{ $prd->name_product }}</h5>
+                            <h5 class="mb-1"><a href="{{ route('show', ['id' => $prd->id]) }}">{{ $prd->name_product }}</a></h5>
                             <small class="text-body-secondary">{{ $prd->created_at }}</small>
                         </div>
                         <p class="mb-1">{{ $prd->name_product }}</p>
@@ -39,7 +39,6 @@
     Giỏ hàng
 </a>
 <br>
-
 <table border="1" width="100%">
     <tr>
         <td>Tên sản phẩm</td>

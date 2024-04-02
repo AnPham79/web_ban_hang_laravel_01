@@ -4,7 +4,7 @@
     @csrf
     Email của bạn
     <br>
-    <input type="text" name="email">
+    <input type="text" name="email" value="{{ old('email') }}">
     <br>
     <input type="password" name="password" id="Check">
     <p onclick="checkpass()">Xem</p>

@@ -7,10 +7,13 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\UserRequest;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ThankForRegister;
 
 class AuthController extends Controller
 {
-    public function login() {
+    public function login()
+    {
         return view('Auth.login');
     }
 
@@ -36,7 +39,6 @@ class AuthController extends Controller
                 } else {
                     return redirect()->route('index');
                 }
-                
             } else {
                 return redirect()->route('login')->with('loginError', 'Email hoặc mật khẩu không trùng khớp');
             }
@@ -45,22 +47,25 @@ class AuthController extends Controller
         }
     }
 
-    public function register() {
+    public function register()
+    {
         return view('Auth.register');
     }
 
-    public function process_register(UserRequest $request) {
+    public function process_register(UserRequest $request)
+    {
         $data = new User;
         // // $data->password = Hash::make($request->password);
         // sử dụng cái này để mã hóa pass thây vì hash
         $data->fill($request->except('_token'));
         $data->password = bcrypt($request->password);
+
+        Mail::to($request->email)->send(new ThankForRegister($request->name));
         $data->save();
 
         return redirect()->route('login');
-
     }
-    
+
     public function logout()
     {
         session()->flush();

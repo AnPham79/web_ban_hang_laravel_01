@@ -18,8 +18,6 @@ class CreateInvoicesTable extends Migration
             $table->unsignedBigInteger('user_id');
             // bảng ghi cha bị xóa thì xóa luôn bảng ghi con
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->unsignedBigInteger('cart_id');
-            $table->foreign('cart_id')->references('id')->on('carts')->onDelete('cascade');
             $table->string('total_price');
             $table->integer('status_invoices')->comment('invoiceStatusEnum')->index();
             $table->timestamps();
