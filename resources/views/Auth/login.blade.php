@@ -1,5 +1,15 @@
 <h1>Đăng nhập tài khoản</h1>
 <br>
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+<br>
 <form action="{{ route('process_login') }}" method="POST">
     @csrf
     Email của bạn

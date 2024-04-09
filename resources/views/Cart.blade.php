@@ -1,21 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.master')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
+@section('Web học lập trình F88', 'Trang chủ')
+
+@section('content')
 @if (session('error'))
     <div class="alert alert-error">
         {{ session('error') }}
     </div>
 @endif
-<a href="{{ route('index') }}">
-    Quay về trang chủ
-</a>
-<body>
+<h1>Giỏ hàng</h1>
+<br>
     @if ($cartItems->isEmpty())
         <h1>Giỏ hàng trống</h1>
     @else
@@ -69,6 +63,4 @@
             </a>
         </button>
     @endif
-</body>
-
-</html>
+@endsection

@@ -16,7 +16,6 @@
                 <th>Người mua</th>
                 <th>Số lượng</th>
                 <th>Đơn giá</th>
-                <th>Thành tiền</th>
             </tr>
         </thead>
         <tbody>

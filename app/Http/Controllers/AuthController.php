@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\UserRequest;
+use App\Http\Requests\loginRequest;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ThankForRegister;
 
@@ -17,7 +18,7 @@ class AuthController extends Controller
         return view('Auth.login');
     }
 
-    public function process_login(Request $request)
+    public function process_login(loginRequest $request)
     {
         try {
             $user = User::query()
@@ -40,10 +41,10 @@ class AuthController extends Controller
                     return redirect()->route('index');
                 }
             } else {
-                return redirect()->route('login')->with('loginError', 'Email hoặc mật khẩu không trùng khớp');
+                return redirect()->route('login')->withErrors(['error' => 'Email hoặc mật khẩu không trùng khớp']);
             }
         } catch (\Throwable $th) {
-            return redirect()->route('login')->with('loginError', 'Email hoặc mật khẩu không trùng khớp');
+            return redirect()->route('login')->withErrors(['error' => 'Email hoặc mật khẩu không trùng khớp']);
         }
     }
 

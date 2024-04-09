@@ -100,4 +100,16 @@ class InvoiceController extends Controller
 
         Cart::where('user_id', $user_id)->delete();
     }
+
+    public function orderHistory() {
+        if(session()->has('id')) {
+            $data = InvoiceDetail::where('invoice_details.user_id', session()->get('id'))
+                ->join('products', 'invoice_details.product_id', '=', 'products.id')
+                ->join('users', 'invoice_details.user_id', '=', 'users.id')
+                ->select('products.name_product', 'users.name', 'users.email', 'users.address', 'users.phone')
+                ->get();
+    
+            return view('order_history', compact('data'));
+        }
+    }    
 }

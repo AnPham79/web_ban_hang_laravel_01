@@ -8,8 +8,12 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\InvoiceDetailController;
+use App\Http\Controllers\ProductPageController;
+
 use App\Http\Middleware\CheckAdminMiddleware;
 use App\Http\Middleware\CheckLoginMiddleware;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +27,8 @@ use App\Http\Middleware\CheckLoginMiddleware;
 */
 
 Route::get('/', [HomeController::class, 'index'])->name('index');
+Route::get('/product-page', [ProductPageController::class, 'productPage'])->name('product-page');
+
 Route::get('/search', [HomeController::class, 'search'])->name('search');
 Route::get('/show/{id}', [HomeController::class, 'show'])->name('show');
 
@@ -36,7 +42,10 @@ Route::post('/register', [AuthController::class, 'process_register'])->name('pro
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::group(['middleware' => checkLoginMiddleware::class], function () {
+    Route::get('/order-history', [InvoiceController::class, 'orderHistory'])->name('order-history');
     Route::post('/addToCart/{id}', [CartController::class, 'addToCart'])->name('addToCart');
+    Route::post('/addToCartInDetail/{id}', [CartController::class, 'addToCartInDetail'])->name('addToCartInDetail');
+    
     Route::post('/save-selected-items', 'App\Http\Controllers\InvoiceController@saveSelectedItems')->name('saveSelectedItems');
     Route::put('/incre/{id}', [CartController::class, 'incre'])->name('incre');
     Route::put('/decre/{id}', [CartController::class, 'decre'])->name('decre');

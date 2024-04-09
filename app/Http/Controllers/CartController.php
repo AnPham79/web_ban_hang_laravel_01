@@ -62,6 +62,37 @@ class CartController extends Controller
         return redirect()->back();
     }
 
+    public function addToCartInDetail($id, Request $request) {
+        $product = Product::find($id);
+
+        $quantity = $request->input('quantity');
+
+        if ($product) {
+            $existingCartItem = Cart::where('user_id', session()->get('id'))
+                ->where('product_id', $product->id)
+                ->first();
+
+            if ($existingCartItem) {
+                if ($existingCartItem->quantity_prd < 10) {
+                    $existingCartItem->quantity_prd += $request->quantity;
+                    $existingCartItem->save();
+                } else {
+                    return redirect()->back()->with('error', 'Số lượng sản phẩm đã đạt tối đa.');
+                }
+            } else {
+                $cart = new Cart();
+                var_dump($cart);
+                $cart->user_id = session()->get('id');
+                $cart->quantity_prd = $quantity;
+                $cart->product_id = $product->id;
+                $cart->price_prd = $product->price_product;
+                $cart->status_cart = CartStatusEnum::GIO_HANG;
+                $cart->save();
+                return redirect()->back();
+            }
+        }
+    }
+
     public function delCart(Request $request, $id)
     {
         $cartItem = Cart::find($id);

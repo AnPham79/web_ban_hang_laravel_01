@@ -3,9 +3,13 @@
 @section('Web học lập trình F88', 'Trang chủ')
 
 @section('content')
-<h1>Trang chủ</h1>
+<h1>Trang sản phẩm</h1>
 <br>
 <table border="1" width="100%">
+    Tìm kiếm
+    <form action="">
+        <input type="search" name="q" value="{{ $search }}" placeholder="Nhập tìm kiếm của bạn ...">
+    </form>
     <tr>
         <td>Tên sản phẩm</td>
         <td>Ảnh sản phẩm</td>
@@ -32,8 +36,6 @@
             </td>
         </tr>
     @endforeach
-    @if ($data instanceof \Illuminate\Pagination\AbstractPaginator)
-        {{ $data->links() }}
-    @endif
 </table>
+{{ $data->links() }}
 @endsection
