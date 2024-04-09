@@ -36,10 +36,11 @@
         </tr>
     </table>
 
+    <br>
     @foreach ($comment as $each)
-        người bình luận {{ $each->user_id }}
-        nội dung bình luận
-        <p>{{ $each->feedback }}</p>
+        người bình luận {{ $each->name }}
+        <br>
+        nội dung bình luận:<p>{{ $each->feedback }}</p>
     @endforeach
 
     <form action="{{ route('comment', ['id' => $data->id]) }}" method="POST">

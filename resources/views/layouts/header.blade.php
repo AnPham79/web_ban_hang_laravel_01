@@ -39,6 +39,8 @@
     Giỏ hàng
 </a>
 <br>
+<a href="{{ route('index') }}">Trang chủ</a>
+<br>
 <a href="{{ route('product-page') }}">Trang sản phẩm</a>
 <br>
 <a href="">Giới thiệu</a>

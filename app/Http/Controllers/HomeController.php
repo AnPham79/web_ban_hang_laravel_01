@@ -65,7 +65,10 @@ class HomeController extends Controller
     public function show($id)
     {
         $data = Product::find($id);
-        $comment = Comment::where('product_id', $id)->get();
+        $comment = Comment::where('product_id', $id)
+        ->join('users', 'comments.user_id', '=', 'users.id')
+        ->select('comments.*', 'users.name')
+        ->get();
 
         return view('show', [
             'data' => $data,

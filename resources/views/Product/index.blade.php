@@ -5,6 +5,23 @@
 </a>
 <br>
 
+<br>
+    <form action="{{ route('export-excel') }}" method="POST">
+        @csrf
+        <button>
+            Xuất file excel
+        </button>
+    </form>
+<br>
+<br>
+    <form action="{{ route('export-CSV') }}" method="POST">
+        @csrf
+        <button>
+            Xuất file CSV
+        </button>
+    </form>
+<br>
+
 @if(session()->has('role'))
     Xin chào: {{ session()->get('name') }}
     <br>

@@ -101,15 +101,33 @@ class InvoiceController extends Controller
         Cart::where('user_id', $user_id)->delete();
     }
 
-    public function orderHistory() {
-        if(session()->has('id')) {
-            $data = InvoiceDetail::where('invoice_details.user_id', session()->get('id'))
-                ->join('products', 'invoice_details.product_id', '=', 'products.id')
+    public function orderHistory()
+    {
+        if (session()->has('id')) {
+            $data = InvoiceDetail::join('products', 'invoice_details.product_id', '=', 'products.id')
                 ->join('users', 'invoice_details.user_id', '=', 'users.id')
-                ->select('products.name_product', 'users.name', 'users.email', 'users.address', 'users.phone')
+                ->join('invoices', 'invoice_details.invoice_id', '=', 'invoices.id')
+                ->select('invoice_details.*','products.name_product', 'users.name', 'users.email', 'users.address', 'users.phone', 'invoices.status_invoices')
+                ->where('invoice_details.user_id', session()->get('id'))
                 ->get();
-    
+
             return view('order_history', compact('data'));
         }
+    }
+
+    public function cancelOrder($id) {
+        $invoice = Invoice::find($id);
+    
+        if ($invoice) {
+            $invoice->update(['status_invoices' => 4]);
+        }
+
+        // dd($invoice);
+    
+        return redirect()->back();
     }    
+
+    public function changeStatus($id) {
+
+    }
 }

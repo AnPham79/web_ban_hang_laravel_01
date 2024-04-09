@@ -43,6 +43,9 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::group(['middleware' => checkLoginMiddleware::class], function () {
     Route::get('/order-history', [InvoiceController::class, 'orderHistory'])->name('order-history');
+    Route::PUT('/change-status/{id}', [InvoiceController::class, 'changeStatus'])->name('change-status');
+    Route::PUT('/cancel-order/{id}', [InvoiceController::class, 'cancelOrder'])->name('cancel-order');
+
     Route::post('/addToCart/{id}', [CartController::class, 'addToCart'])->name('addToCart');
     Route::post('/addToCartInDetail/{id}', [CartController::class, 'addToCartInDetail'])->name('addToCartInDetail');
     
@@ -52,9 +55,14 @@ Route::group(['middleware' => checkLoginMiddleware::class], function () {
     Route::delete('/delCart/{id}', [CartController::class, 'delCart'])->name('delCart');
     Route::get('PagePay', [InvoiceController::class, 'PagePay'])->name('PagePay');
     Route::put('/pay', [InvoiceController::class, 'pay'])->name('pay');
+
     Route::post('/comment/{id}', [HomeController::class, 'comment'])->name('comment');
 
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
+    // import file excel
+    Route::post('/export-excel', [ProductController::class, 'exportIntoExcel'])->name('export-excel');
+    Route::post('/export-CSV', [ProductController::class, 'exportIntoCSV'])->name('export-CSV');
 
     Route::group(['prefix' => 'Category', 'as' => 'Category.'], function () {
         Route::get('/', [CategoryController::class, 'index'])->name('index');

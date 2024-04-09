@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Brand;
+use App\Exports\ProductExport;
+use Maatwebsite\Excel\Excel;
 use App\Http\Requests\ProductRequest;
 
 class ProductController extends Controller
@@ -67,5 +69,13 @@ class ProductController extends Controller
         $prd->delete();
 
         return redirect()->route('Product.index')->with('success', 'Xóa sản phẩm thành công');
+    }
+
+    public function exportIntoExcel(Excel $excel) { 
+        return $excel->download(new ProductExport, 'productlist.xlsx'); 
+    }
+
+    public function exportIntoCSV(Excel $excel) {
+         return $excel->download(new ProductExport, 'productlist.csv');
     }
 }
