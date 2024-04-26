@@ -49,12 +49,12 @@
                         <table class="table table-triped">
                             <thead>
                                 <tr>
-                                    <th>Id</th>
+                                    <th>#</th>
                                     <th>Image</th>
                                     <th>Name</th>
                                     <th>Stock</th>
                                     <th>Price</th>
-                                    <th>Sale</th>
+                                    <th>SKU</th>
                                     <th>Category</th>
                                     <th>Date</th>
                                     <th>Action</th>
@@ -63,19 +63,27 @@
                             <tbody>
                                 @foreach ($data as $each)
                                     <tr>
+                                        <td>{{ $each->id }}</td>
+                                        <td><img src="{{ $each->img_product }}" alt="Hình ảnh" style="height:100px"></td>
                                         <td>{{ $each->name_product }}</td>
-                                        <td><img src="{{ $each->img_product }}" alt="Hình ảnh" style="width:200px"></td>
-                                        <td>{{ $each->price_product }}</td>
-                                        <td>{{ $each->quantity_product }}</td>
-                                        {{-- !! sửa dụng để hiển thị html --}}
-                                        <td>{!! nl2br($each->description_product) !!}</td>
                                         <td>
-                                            <a href="{{ route('Product.edit', ['id' => $each->id]) }}">Sửa</a>
+                                            @if($each->stock_status == 'in_stock')
+                                                in stock
+                                            @else
+                                                out of stock
+                                            @endif
+                                        </td>
+                                        <td class="fw-bold">${{ $each->price_product }}</td>
+                                        <td>{{ $each->SKU }}</td>
+                                        <td>{{ $each->category->category_name }}</td>
+                                        <td>{{ $each->setDateCreated() }}</td>
+                                        <td class="d-flex">
+                                            <a href="{{ route('Product.edit', ['id' => $each->id]) }}"><i class="fa-solid fa-pen-to-square mx-1"></i></a>
                                             <form action="{{ route('Product.destroy', ['id' => $each->id]) }}"
                                                 method="POST">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button>Xóa</button>
+                                                <button class="border-0" type="submit"><a href=""><i class="fa-solid fa-trash text-danger mx-1"></i></a></button>
                                             </form>
                                         </td>
                                     </tr>

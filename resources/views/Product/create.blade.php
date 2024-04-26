@@ -8,7 +8,7 @@
                 <div class="panel panel-heading">
                     <div class="row">
                         <div class="col-md-6">
-                            Add new product
+                            <h2 class="fw-bold">ADD NEW PRODUCT</h2>
                         </div>
                         <div class="col-md-6">
                             <a href="{{ route('Product.index') }}" class="btn btn-success float-end">All Products</a>

@@ -43,17 +43,30 @@ class ProductController extends Controller
         $data = new Product;
         $data->product_slug = Str::slug($req->name_product);
         $data->fill($req->except('_token'));
+
+        if (!$req->hasFile('img_product') && $data->img_product) {
+            $data->img_product = $data->img_product;
+        }
+
         $data->save();
 
-        return redirect()->route('Product.index')->with('success', 'Bạn đã thêm thành công sản phẩm');
+        return redirect()->route('Product.index')->with('message', 'Product has been created successfully');
     }
+
 
     public function edit($id)
     {
         $data = Product::find($id);
 
+        $brands = Brand::all();
+
+        $categories = Category::all();
+
+
         return view('Product.edit', [
-            'data' => $data
+            'data' => $data,
+            'brands' => $brands,
+            'categories' => $categories
         ]);
     }
 
@@ -65,22 +78,24 @@ class ProductController extends Controller
 
         $data->save();
 
-        return redirect()->route('Product.index')->with('success', 'Bạn đã sửa thành công sản phẩm');
+        return redirect()->route('Product.index')->with('message', 'Product has been updated successfully');
     }
 
-    public function destroy(Request $req, $id)
+    public function destroy($id)
     {
         $prd = Product::findOrFail($id);
         $prd->delete();
 
-        return redirect()->route('Product.index')->with('success', 'Xóa sản phẩm thành công');
+        return redirect()->route('Product.index')->with('message', 'Product has been deleted successfully');
     }
 
-    public function exportIntoExcel(Excel $excel) { 
-        return $excel->download(new ProductExport, 'productlist.xlsx'); 
+    public function exportIntoExcel(Excel $excel)
+    {
+        return $excel->download(new ProductExport, 'productlist.xlsx');
     }
 
-    public function exportIntoCSV(Excel $excel) {
-         return $excel->download(new ProductExport, 'productlist.csv');
+    public function exportIntoCSV(Excel $excel)
+    {
+        return $excel->download(new ProductExport, 'productlist.csv');
     }
 }

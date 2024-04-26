@@ -26,5 +26,15 @@ class Product extends Model
     public static function getEmployee() { 
         $records = DB::table('products')->select('id', 'name_product', 'img_product', 'price_product', 'quantity_product', 'description_product', 'category_id', 'brand_id')->get()->toArray();
         return $records;
-      }
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function setDateCreated()
+    {
+        return $this->created_at->Format('d-m-Y');
+    }
 }
