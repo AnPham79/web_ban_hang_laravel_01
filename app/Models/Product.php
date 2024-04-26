@@ -17,7 +17,10 @@ class Product extends Model
         'quantity_product',
         'description_product',
         'category_id',
-        'brand_id'
+        'brand_id',
+        'short_description',
+        'stock_status',
+        'SKU'
     ];
 
     public static function getEmployee() { 

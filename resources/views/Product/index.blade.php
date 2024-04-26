@@ -1,72 +1,91 @@
-<h1>Trang quản lí sản phẩm</h1>
+@extends('layouts.master')
 
-<a href="{{ route('Product.create') }}">
-    Thêm sản phẩm tại đây
-</a>
-<br>
+@section('content')
+    <div>
+        <style>
+            nav svg {
+                height: 20px;
+            }
 
-<br>
-    <form action="{{ route('export-excel') }}" method="POST">
-        @csrf
-        <button>
-            Xuất file excel
-        </button>
-    </form>
-<br>
-<br>
-    <form action="{{ route('export-CSV') }}" method="POST">
-        @csrf
-        <button>
-            Xuất file CSV
-        </button>
-    </form>
-<br>
-
-@if(session()->has('role'))
-    Xin chào: {{ session()->get('name') }}
-    <br>
-    quyền : {{ session()->get('role') }}
-    <br>
-    <a href="{{ route('logout') }}">
-        Đăng xuất
-    </a>
-@endif
-
-<br>
-
-@if (session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
+            nav .hidden {
+                display: block !important;
+            }
+        </style>
+        <div class="container" style="padding: 30px 0px">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h2 class="fw-bold">All products</h2>
+                                </div>
+                                <div class="col-md-6 float-end">
+                                    <a href="{{ route('Product.create') }}" class="btn btn-success float-end mx-1">Add
+                                        new
+                                    </a>
+                                    <form action="{{ route('export-CSV') }}" method="POST">
+                                        @csrf
+                                        <button class="btn btn-success float-end mx-1">
+                                            Export CSV
+                                        </button>
+                                    </form>
+                                    <form action="{{ route('export-excel') }}" method="POST">
+                                        @csrf
+                                        <button class="btn btn-success float-end mx-1">
+                                            Export Excel
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        @if (session()->has('message'))
+                            <div class="alert alert-success" role="alert">
+                                {{ session()->get('message') }}
+                            </div>
+                        @endif
+                        <table class="table table-triped">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Image</th>
+                                    <th>Name</th>
+                                    <th>Stock</th>
+                                    <th>Price</th>
+                                    <th>Sale</th>
+                                    <th>Category</th>
+                                    <th>Date</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($data as $each)
+                                    <tr>
+                                        <td>{{ $each->name_product }}</td>
+                                        <td><img src="{{ $each->img_product }}" alt="Hình ảnh" style="width:200px"></td>
+                                        <td>{{ $each->price_product }}</td>
+                                        <td>{{ $each->quantity_product }}</td>
+                                        {{-- !! sửa dụng để hiển thị html --}}
+                                        <td>{!! nl2br($each->description_product) !!}</td>
+                                        <td>
+                                            <a href="{{ route('Product.edit', ['id' => $each->id]) }}">Sửa</a>
+                                            <form action="{{ route('Product.destroy', ['id' => $each->id]) }}"
+                                                method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button>Xóa</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        {{ $data->links() }}
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-@endif
-
-<br>
-<table border="1" width="100%">
-    <tr>
-        <td>Tên sản phẩm</td>
-        <td>Ảnh sản phẩm</td>
-        <td>Giá sản phẩm</td>
-        <td>Số lượng</td>
-        <td>Mô tả sản phẩm</td>
-        <td>Sửa</td>
-        <td>Xóa</td>
-    </tr>
-    @foreach($data as $each)
-    <tr>
-        <td>{{ $each->name_product }}</td>
-        <td><img src="{{ $each->img_product }}" alt="Hình ảnh" style="width:200px"></td>
-        <td>{{ $each->price_product }}</td>
-        <td>{{ $each->quantity_product }}</td>
-        {{-- !! sửa dụng để hiển thị html --}}
-        <td>{!! nl2br($each->description_product) !!}</td>
-        <td><a href="{{ route('Product.edit', ['id' => $each->id]) }}">Sửa</a></td>
-        <td>
-            <form action="{{ route('Product.destroy', ['id' => $each->id]) }}" method="POST">
-                @csrf
-                @method('DELETE')
-                <button>Xóa</button>
-            </form>
-        </td>        
-    </tr>
-    @endforeach
-</table>
+@endsection

@@ -10,12 +10,16 @@ use App\Models\Brand;
 use App\Exports\ProductExport;
 use Maatwebsite\Excel\Excel;
 use App\Http\Requests\ProductRequest;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
     public function index()
     {
-        $data = Product::all();
+        Paginator::useBootstrap();
+
+        $data = Product::paginate(8);
         return view('Product.index', [
             'data' => $data
         ]);
@@ -37,6 +41,7 @@ class ProductController extends Controller
     public function store(ProductRequest $req)
     {
         $data = new Product;
+        $data->product_slug = Str::slug($req->name_product);
         $data->fill($req->except('_token'));
         $data->save();
 

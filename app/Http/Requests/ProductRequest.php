@@ -29,6 +29,9 @@ class ProductRequest extends FormRequest
                 'unique:products,name_product',
                 'string',
             ],
+            'product_slug' => [
+                'unique:products,product_slug',
+            ],
             'img_product' => [
                 'required'
             ],
