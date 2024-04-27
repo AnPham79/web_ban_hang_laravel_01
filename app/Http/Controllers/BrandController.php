@@ -27,7 +27,7 @@ class BrandController extends Controller
         $data->fill($request->except('_token'));
         $data->save();
 
-        return redirect()->route('Brand.index');
+        return redirect()->route('Brand.index')->with('message', 'Brand has been created successfully');
     }
 
     public function edit($id)
@@ -42,13 +42,13 @@ class BrandController extends Controller
             $request->except('_token', '_method')
         );
 
-        return redirect()->route('Brand.index')->with('success', 'Thương hiệu đã được cập nhật thành công!');
+        return redirect()->route('Brand.index')->with('message', 'Brand has been updated successfully');
     }
 
     public function destroy(Request $request, Brand $id)
     {
         $id->delete();
 
-        return redirect()->route('Brand.index')->with('success', 'Thương hiệu đã được xóa thành công!');
+        return redirect()->route('Brand.index')->with('message', 'Brand has been deleted successfully');
     }
 }

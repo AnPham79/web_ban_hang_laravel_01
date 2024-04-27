@@ -27,7 +27,7 @@ class CategoryController extends Controller
         $data->fill($request->except('_token'));
         $data->save();
 
-        return redirect()->route('Category.index');
+        return redirect()->route('Category.index')->with('message', 'Category has been created successfully');
     }
 
     public function edit(Request $request, $id)
@@ -42,13 +42,13 @@ class CategoryController extends Controller
             $request->except('_token', '_method')
         );
 
-        return redirect()->route('Category.index')->with('success', 'Danh mục đã được cập nhật thành công!');
+        return redirect()->route('Category.index')->with('message', 'Category has been updated successfully');
     }
 
     public function destroy(Request $request, Category $id)
     {
         $id->delete();
 
-        return redirect()->route('Category.index')->with('success', 'Danh mục đã được xóa thành công!');
+        return redirect()->route('Category.index')->with('message', 'Category has been deleted successfully');
     }
 }

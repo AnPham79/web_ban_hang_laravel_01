@@ -126,11 +126,11 @@
                                             <span class="text-white">Hi: {{ session()->get('name') }}</span>
                                         </button>
                                         <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" href="{{ route('order-history') }}">Products
+                                            <li><a class="dropdown-item" href="{{ route('Product.index') }}">Products
                                                     Manager</a></li>
-                                            <li><a class="dropdown-item" href="{{ route('order-history') }}">Categories
+                                            <li><a class="dropdown-item" href="{{ route('Category.index') }}">Categories
                                                     Manager</a></li>
-                                            <li><a class="dropdown-item" href="{{ route('order-history') }}">Brands
+                                            <li><a class="dropdown-item" href="{{ route('Brand.index') }}">Brands
                                                     Manager</a></li>
                                             <li><a class="dropdown-item" href="{{ route('order-history') }}">Orders
                                                     Manager</a></li>
