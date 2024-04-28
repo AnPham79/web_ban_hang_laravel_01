@@ -12,13 +12,17 @@ class ProductPageController extends Controller
 {
     public function productPage(Request $request) {
         Paginator::useBootstrap();
+        $product_session_1 = Product::query()->limit(2)->get();
+        $product_session_2 = Product::query()->limit(2)->get();
         $search = $request->get('q', '');
         $data = Product::query()
         ->where('name_product', 'like', '%' . $search . '%')
-        ->paginate(2);
+        ->paginate(8);
 
         $data->appends(['q' => $search]);
 
-        return view('product', ['data' => $data, 'search' => $search]);
+        return view('product', ['data' => $data, 'search' => $search, 
+        'product_session_1' => $product_session_1,
+        'product_session_2' => $product_session_2 ]);
     }
 }

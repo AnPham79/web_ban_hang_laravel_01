@@ -65,28 +65,32 @@
                             <div class="product">
                                 <div
                                     class="product-image position-relative">
-                                    <a href>
+                                    <a href="{{ route('show', ['id' => $item->id]) }}">
                                         <img
-                                            src="{{ asset('img/product/product-2.jpg') }}"
+                                            src="{{ $item->img_product }}"
                                             class="w-100" alt>
                                     </a>
-                                    <button
+                                    <form action="{{ route('addToCart', ['id' => $item->id]) }}" method="post">
+                                        @csrf
+                                        <button
                                         class="btn-addtocart position-absolute"><i
                                             class="fa-solid fa-bag-shopping mx-2"></i>Add
                                         to cart</button>
+                                    </form>
                                 </div>
                                 <div class="product-info">
                                     <div class="product-name my-2">
-                                        <a href class="text-dark"
+                                        <a href="{{ route('show', ['id' => $item->id]) }}" class="text-dark"
                                             style="text-decoration: none;"><h5
                                                 class="fw-bold"
                                                 style="font-size: 15px;"
-                                                class="font-size:20px">Reading
-                                                chairs</h5></a>
+                                                class="font-size:20px">{{ $item->name_product }}</h5></a>
                                     </div>
-                                    <div class="product-description">
-                                        Lorem ipsum dolor sit amet
-                                        consectetur adipisicing elit.
+                                    <div class="product-description" style="overflow: hidden;
+                                    text-overflow: ellipsis;
+                                    white-space: nowrap;
+                                    max-width: 100%">
+                                        {{ $item->short_description }}
                                     </div>
                                     <div class="product-rate">
                                         <i
@@ -101,7 +105,7 @@
                                             class="fa-solid fa-star text-warning my-2"></i>
                                     </div>
                                     <div class="product-price">
-                                        <b>10.000 đ</b>
+                                        <b>${{ $item->price_product }}</b>
                                     </div>
                                 </div>
                             </div>

@@ -27,6 +27,8 @@ class HomeController extends Controller
 
     public function show($id)
     {
+        $product_popular = Product::query()->limit(4    )->get();
+        $more_product = Product::query()->limit(6)->get();
         $data = Product::find($id);
         $comment = Comment::where('product_id', $id)
         ->join('users', 'comments.user_id', '=', 'users.id')
@@ -35,7 +37,9 @@ class HomeController extends Controller
 
         return view('show', [
             'data' => $data,
-            'comment' => $comment
+            'comment' => $comment,
+            'product_popular' => $product_popular,
+            'more_product' => $more_product
         ]);
     }
 
