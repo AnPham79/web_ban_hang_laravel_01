@@ -13,6 +13,7 @@ class CartController extends Controller
 {
     public function ViewCart()
     {
+        $product = Product::query()->limit(6)->get();
         if (!session()->has('role')) {
             return view('Auth.login');
         } else {
@@ -25,8 +26,22 @@ class CartController extends Controller
                 ->where('carts.user_id', $userId)
                 ->get();
 
+            $totalPrice = 0;
+            $subtotal = 0;
+
+            foreach ($cartItems as $item) {
+                $price = $item->price_prd;
+                $quantity = $item->quantity_prd;
+    
+                $subtotal = $price * $quantity;
+    
+                $totalPrice += $subtotal;
+            }
             return view('cart', [
                 'cartItems' => $cartItems,
+                'product' => $product,
+                'subtotal' => $subtotal,
+                'totalPrice' => $totalPrice
             ]);
         }
     }

@@ -12,7 +12,7 @@
         <div class="container">
             <!-- Logo -->
             <a class="navbar-brand" href="#">
-                <h5><i class="fa-solid fa-couch mx-1 text-warning"></i>AN DEV</h5>
+                <a href="{{ route('index') }}" style="text-decoration: none; color: white;"><h5><i class="fa-solid fa-couch mx-1 text-warning"></i>AN DEV</h5></a>
             </a>
 
             <!-- Toggler button for mobile -->
