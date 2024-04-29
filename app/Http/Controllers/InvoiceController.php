@@ -107,17 +107,14 @@ class InvoiceController extends Controller
         Mail::to(session()->get('email'))->send(new Bill($billDetails, $totalPrice));
 
         Cart::where('user_id', $user_id)->delete();
+
+        return view('thankyou');
     }
 
     public function orderHistory()
     {
         if (session()->has('id')) {
-            $data = InvoiceDetail::join('products', 'invoice_details.product_id', '=', 'products.id')
-                ->join('users', 'invoice_details.user_id', '=', 'users.id')
-                ->join('invoices', 'invoice_details.invoice_id', '=', 'invoices.id')
-                ->select('invoice_details.*', 'products.name_product', 'users.name', 'users.email', 'users.address', 'users.phone', 'invoices.status_invoices')
-                ->where('invoice_details.user_id', session()->get('id'))
-                ->get();
+            $data = Invoice::where('user_id', session()->get('id'));
 
             return view('order_history', compact('data'));
         }
