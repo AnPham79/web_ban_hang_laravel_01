@@ -21,8 +21,7 @@
         <tbody>
             @foreach ($billDetails as $item)
             <tr>
-                <td>{{ $item['product']->name_product }}</td>
-                <td>{{ $item['user']->name }}</td>
+                <td>{{ $item['product_id']->name_product }}</td>
                 <td>{{ $item['quantity'] }}</td>
                 <td>{{ $item['unit_price'] }}</td>
             @endforeach

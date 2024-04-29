@@ -19,11 +19,9 @@ class CreateInvoiceDetailsTable extends Migration
             $table->foreign('invoice_id')->references('id')->on('invoices')->onDelete('cascade');
             $table->unsignedBigInteger('product_id');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->integer('quantity');
             $table->decimal('unit_price', 10, 2);
-            $table->decimal('total_price', 10, 2);
+            $table->decimal('subtotal', 10, 2);
             $table->timestamps();
         });
         

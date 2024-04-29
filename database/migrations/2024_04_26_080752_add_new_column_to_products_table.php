@@ -14,13 +14,11 @@ class AddNewColumnToProductsTable extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-            Schema::table('products', function (Blueprint $table) {
-                $table->string('product_slug');
-                $table->string('short_description');
-                $table->enum('stock_status', ['in_stock', 'out_of_stock'])->default('in_stock');
-                $table->string('SKU');
-                $table->text('gallery_product');
-            });
+            // $table->string('product_slug');
+            // $table->string('short_description');
+            // $table->enum('stock_status', ['in_stock', 'out_of_stock'])->default('in_stock');
+            // $table->string('SKU');
+            // $table->text('gallery_product');
         });
     }
 
@@ -31,6 +29,5 @@ class AddNewColumnToProductsTable extends Migration
      */
     public function down()
     {
-        
     }
 }
